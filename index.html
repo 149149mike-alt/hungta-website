@@ -3,7 +3,12 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>第一個HOMEPAGE </title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>泓達電腦 - 專業電腦組裝維修</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="./pic/LINE圖文.png">
+    <link rel="apple-touch-icon" href="./pic/LINE圖文.png">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -307,32 +312,32 @@
 
     <!-- Hero Section -->
     <section class="hero-section text-center">
-    <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-indicators" id="carousel-indicators"></div>
-        
-        <div class="carousel-inner h-100" id="carousel-inner">
-            <div class="text-center py-5">
-                <p>正在載入精采內容...</p>
-            </div>
-        </div>
+        <div id="heroCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-indicators" id="carousel-indicators"></div>
 
-        <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
-</section>
+            <div class="carousel-inner h-100" id="carousel-inner">
+                <div class="text-center py-5">
+                    <p>正在載入精采內容...</p>
+                </div>
+            </div>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
 
     <!-- Middle Image Section -->
-     <div class="container py-5">
-    <h2 class="text-center mb-5 fw-bold" style="letter-spacing: 5px; color: #df42b1;">精選主裝套餐</h2>
-    <div class="row g-4" id="product-list">
+    <div class="container py-5">
+        <h2 class="text-center mb-5 fw-bold" style="letter-spacing: 5px; color: #df42b1;">精選主裝套餐</h2>
+        <div class="row g-4" id="product-list">
         </div>
-</div>
+    </div>
     <div class="container py-5">
         <div class="row justify-content-center">
             <div class="col-12">
@@ -398,43 +403,43 @@
     </button>
 
     <script>
-    // --- 配置區：請填入發布後的兩個 CSV 連結 ---
-    const CONFIG = {
-        bannerCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWCVCySU-hhZPzN2bjvcFf8XCceOJmQlWBZgovrVTaaELofSNu4S3bREtfMwXHwEqt04-kfkxY6yWb/pub?gid=0&single=true&output=csv',   // 從分頁一「首頁大圖」發布的 CSV
-        productCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWCVCySU-hhZPzN2bjvcFf8XCceOJmQlWBZgovrVTaaELofSNu4S3bREtfMwXHwEqt04-kfkxY6yWb/pub?gid=2067970459&single=true&output=csv', // 從分頁二「商品套餐」發布的 CSV
-        lineID: '@mike149141414'
-    };
+        // --- 配置區：請填入發布後的兩個 CSV 連結 ---
+        const CONFIG = {
+            bannerCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWCVCySU-hhZPzN2bjvcFf8XCceOJmQlWBZgovrVTaaELofSNu4S3bREtfMwXHwEqt04-kfkxY6yWb/pub?gid=0&single=true&output=csv',   // 從分頁一「首頁大圖」發布的 CSV
+            productCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWCVCySU-hhZPzN2bjvcFf8XCceOJmQlWBZgovrVTaaELofSNu4S3bREtfMwXHwEqt04-kfkxY6yWb/pub?gid=2067970459&single=true&output=csv', // 從分頁二「商品套餐」發布的 CSV
+            lineID: '@mike149141414'
+        };
 
-    function initWebsite() {
-        // 1. 抓取並渲染首頁大圖 (Carousel)
-        Papa.parse(CONFIG.bannerCsv, {
-            download: true,
-            header: true,
-            complete: function(results) {
-                const banners = results.data.filter(b => b.image); // 確保有圖片網址才顯示
-                renderBanners(banners);
-            }
-        });
+        function initWebsite() {
+            // 1. 抓取並渲染首頁大圖 (Carousel)
+            Papa.parse(CONFIG.bannerCsv, {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    const banners = results.data.filter(b => b.image); // 確保有圖片網址才顯示
+                    renderBanners(banners);
+                }
+            });
 
-        // 2. 抓取並渲染商品套餐 (Products)
-        Papa.parse(CONFIG.productCsv, {
-            download: true,
-            header: true,
-            complete: function(results) {
-                // 過濾掉空白列，且必須是「上架」狀態才顯示
-                const products = results.data.filter(p => p.name && p.status === '上架');
-                renderProducts(products);
-            }
-        });
-    }
+            // 2. 抓取並渲染商品套餐 (Products)
+            Papa.parse(CONFIG.productCsv, {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    // 過濾掉空白列，且必須是「上架」狀態才顯示
+                    const products = results.data.filter(p => p.name && p.status === '上架');
+                    renderProducts(products);
+                }
+            });
+        }
 
-    // 渲染大圖邏輯
-    function renderBanners(banners) {
-        const inner = document.getElementById('carousel-inner');
-        const indicators = document.getElementById('carousel-indicators');
-        if (!inner || !indicators) return;
+        // 渲染大圖邏輯
+        function renderBanners(banners) {
+            const inner = document.getElementById('carousel-inner');
+            const indicators = document.getElementById('carousel-indicators');
+            if (!inner || !indicators) return;
 
-        inner.innerHTML = banners.map((b, index) => `
+            inner.innerHTML = banners.map((b, index) => `
             <div class="carousel-item ${index === 0 ? 'active' : ''}">
                 ${b.link ? `<a href="${b.link}">` : ''}
                 <img src="${b.image}" class="d-block w-100" alt="${b.title}" style="object-fit: contain;">
@@ -442,18 +447,18 @@
             </div>
         `).join('');
 
-        indicators.innerHTML = banners.map((_, index) => `
+            indicators.innerHTML = banners.map((_, index) => `
             <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="${index}" 
                 class="${index === 0 ? 'active' : ''}" aria-current="${index === 0}"></button>
         `).join('');
-    }
+        }
 
-    // 渲染商品邏輯
-    function renderProducts(products) {
-        const container = document.getElementById('product-list'); // 確保 HTML 容器 ID 是 product-list
-        if (!container) return;
+        // 渲染商品邏輯
+        function renderProducts(products) {
+            const container = document.getElementById('product-list'); // 確保 HTML 容器 ID 是 product-list
+            if (!container) return;
 
-        container.innerHTML = products.map(p => `
+            container.innerHTML = products.map(p => `
             <div class="col-md-4">
                 <div class="card h-100 p-4 text-center" style="background: rgba(255,255,255,0.05); border: 1px solid #3d1d6d;">
                     <img src="${p.img}" class="card-img-top rounded mb-3" alt="${p.name}" 
@@ -468,17 +473,17 @@
                 </div>
             </div>
         `).join('');
-    }
+        }
 
-    // 統一啟動
-    window.onload = initWebsite;
+        // 統一啟動
+        window.onload = initWebsite;
 
-    // --- 補上圖片放大功能 (使用 Bootstrap Modal) ---
-    function showImage(src) {
-        // 檢查頁面上是否已有 modal，沒有則建立一個
-        let modalEl = document.getElementById('imageModal');
-        if (!modalEl) {
-            const modalHtml = `
+        // --- 補上圖片放大功能 (使用 Bootstrap Modal) ---
+        function showImage(src) {
+            // 檢查頁面上是否已有 modal，沒有則建立一個
+            let modalEl = document.getElementById('imageModal');
+            if (!modalEl) {
+                const modalHtml = `
                 <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered modal-xl">
                         <div class="modal-content bg-transparent border-0">
@@ -489,20 +494,20 @@
                         </div>
                     </div>
                 </div>`;
-            document.body.insertAdjacentHTML('beforeend', modalHtml);
-            modalEl = document.getElementById('imageModal');
+                document.body.insertAdjacentHTML('beforeend', modalHtml);
+                modalEl = document.getElementById('imageModal');
+            }
+            document.getElementById('modalImage').src = src;
+            const modal = new bootstrap.Modal(modalEl);
+            modal.show();
         }
-        document.getElementById('modalImage').src = src;
-        const modal = new bootstrap.Modal(modalEl);
-        modal.show();
-    }
 
-    // LINE 詢問功能 (保持原樣)
-    function addToCart(name, spec) {
-        const lineID = CONFIG.lineID;
-        const text = encodeURIComponent(`您好，我想詢問套餐：\n【${name}】\n配置：${spec}`);
-        window.location.href = `https://line.me/R/oaMessage/${lineID}/?${text}`;
-    }
+        // LINE 詢問功能 (保持原樣)
+        function addToCart(name, spec) {
+            const lineID = CONFIG.lineID;
+            const text = encodeURIComponent(`您好，我想詢問套餐：\n【${name}】\n配置：${spec}`);
+            window.location.href = `https://line.me/R/oaMessage/${lineID}/?${text}`;
+        }
     </script>
 </body>
 
