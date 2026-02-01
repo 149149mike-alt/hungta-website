@@ -386,16 +386,16 @@
 
                     container.innerHTML = activeProducts.map(p => `
                         <div class="col">
-                            <div class="card h-100 p-4 text-center">
+                            <div class="card h-100 p-4 text-center" style="background: rgba(255,255,255,0.05); border: 1px solid #3d1d6d;">
                                 <img src="${p.img}" class="card-img-top rounded mb-3" alt="${p.name}"
-                                    onclick="showImage(this.src)">
+                                    style="cursor:pointer; height:250px; object-fit:contain;" onclick="showImage(this.src)">
                                 <div class="card-body d-flex flex-column">
                                     <h3 class="fw-bold text-white">${p.name}</h3>
-                                    <p class="text-white fw-bold">${p.spec}</p>
+                                    <p class="text-white small opacity-75">${p.spec}</p>
                                     <h4 class="fw-bold" style="color: #df42b1;">NT$ ${p.price}</h4>
                                     <button class="btn btn-purple w-100 mt-auto py-2"
                                         onclick="addToCart('${p.name}', '${p.spec}')">
-                                        加入並詢問
+                                        立即詢問
                                     </button>
                                 </div>
                             </div>
