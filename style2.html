@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第二個極簡風</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #f8f8f8;
+            color: #1a1a1a;
+            min-width: 350px;
+        }
+
+        /* Navbar  */
+        .navbar {
+            background: #fff;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+        }
+
+        /* 調整 LOGO 高度 */
+        .nav-link {
+            font-size: 20px;
+            font-weight: 500;
+            margin-left: 15px;
+            color: #333 !important;
+        }
+
+        /* RWD: 中等螢幕調整 navbar 字體 */
+        @media (max-width: 1200px) {
+            .nav-link {
+                font-size: 16px;
+                margin-left: 10px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-link {
+                font-size: 14px;
+                margin-left: 8px;
+            }
+
+            .navbar-collapse .nav-link {
+                font-size: 18px !important;
+                padding: 12px 15px !important;
+            }
+        }
+
+        .nav-link:hover {
+            color: #c19a6b !important;
+        }
+
+        /* Fractal  */
+        .wooden-accent {
+            border-top: 4px solid #c19a6b;
+            width: 50px;
+            margin-bottom: 25px;
+        }
+
+        .hero-section {
+            padding: 100px 0;
+        }
+
+        /* RWD: 小螢幕時 hero-section 文字置中 */
+        @media (max-width: 768px) {
+            .hero-section {
+                padding: 60px 0;
+            }
+
+            .hero-section .col-md-6 {
+                text-align: center !important;
+                padding-left: 20px !important;
+                padding-right: 20px !important;
+            }
+
+            .hero-section .wooden-accent {
+                margin-left: auto;
+                margin-right: auto;
+            }
+        }
+
+        /* 按鈕 */
+        .btn-nordic {
+            background: #1a1a1a;
+            color: white;
+            border-radius: 0;
+            padding: 15px 40px;
+            border: none;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+
+        .btn-nordic:hover {
+            background: #c19a6b;
+            color: white;
+        }
+
+        /* 服務介紹區塊 */
+        .service-section {
+            background: #fafafa;
+            padding: 80px 0;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 10px;
+            padding: 30px 20px;
+            transition: 0.3s;
+            height: 100%;
+            border: 1px solid #eee;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+
+        .service-title {
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            color: #1a1a1a;
+        }
+
+        .service-desc {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Footer */
+        .footer-fractal {
+            background: #fff;
+            border-top: 1px solid #eee;
+            padding: 80px 0 40px;
+        }
+
+        .footer-link {
+            color: #666;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #c19a6b;
+        }
+
+        /* 浮動按鈕 */
+        .float-line {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .float-line:hover {
+            transform: scale(1.1);
+        }
+
+        /* To Top 按鈕 */
+        .to-top-btn {
+            position: fixed;
+            bottom: 110px;
+            right: 30px;
+            background: #c19a6b;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            transition: 0.3s;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .to-top-btn:hover {
+            background: #a88456;
+            transform: translateY(-3px);
+            color: white;
+            box-shadow: 0 6px 20px rgba(193, 154, 107, 0.4);
+        }
+
+
+        .to-top-btn:hover {
+            background: #a88456;
+            transform: translateY(-3px);
+            color: white;
+            box-shadow: 0 6px 20px rgba(193, 154, 107, 0.4);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="/pic/layer-MC0.png" alt="泓達電腦 LOGO">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">電腦優化保養</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">系統軟體</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">主機套餐</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">周邊配件</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">疑難雜症</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">購買須知</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container hero-section">
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center mb-5 mb-md-0">
+                <img src="/pic/pic_FLEXIBLE_GRAPHICS_a.png" class="img-fluid shadow-sm" style="border-radius: 10px;">
+            </div>
+            <div class="col-md-6 px-md-5">
+                <h6 class="text-muted text-uppercase small mb-2">ROG Series - 旗艦組裝</h6>
+                <h1 class="display-3 fw-bold mb-3">ROG 神話</h1>
+                <div class="wooden-accent"></div>
+                <p class="lead text-secondary mb-5">信仰之眼，電競的視覺美學。為您的桌面空間增添不凡質感。</p>
+                <button class="btn btn-nordic" onclick="addToCart('ROG 神話旗艦機', 'Ultar9 / RTX 5080 / 64G DDR5')">
+                    立即諮詢規格
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mb-5">
+        <div class="row align-items-center mb-4">
+            <div class="col-12 text-center">
+                <h2 class="fw-bold">熱門精選</h2>
+                <div class="wooden-accent mx-auto"></div>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <img src="/pic/pic_FLEXIBLE_GRAPHICS_a.png" class="img-fluid shadow-sm"
+                            style="border-radius: 10px;">
+                        <h4 class="fw-bold mb-3">北歐設計款 I</h4>
+                        <p class="text-muted mb-4">Intel i5 / 16G RAM / 1TB SSD</p>
+                        <button class="btn btn-nordic w-100"
+                            onclick="addToCart('北歐設計款 I', 'Intel i5 / 16G RAM / 1TB SSD')">立刻詢問</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <img src="/pic/pic_FLEXIBLE_GRAPHICS_a.png" class="img-fluid shadow-sm"
+                            style="border-radius: 10px;">
+                        <h4 class="fw-bold mb-3">北歐設計款 II</h4>
+                        <p class="text-muted mb-4">AMD R7 / 32G RAM / RTX 4070</p>
+                        <button class="btn btn-nordic w-100"
+                            onclick="addToCart('北歐設計款 II', 'AMD R7 / 32G RAM / RTX 4070')">立刻詢問</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <img src="/pic/pic_FLEXIBLE_GRAPHICS_a.png" class="img-fluid shadow-sm"
+                            style="border-radius: 10px;">
+                        <h4 class="fw-bold mb-3">北歐設計款 III</h4>
+                        <p class="text-muted mb-4">Intel i9 / 64G RAM / RTX 4090</p>
+                        <button class="btn btn-nordic w-100"
+                            onclick="addToCart('北歐設計款 III', 'Intel i9 / 64G RAM / RTX 4090')">立刻詢問</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 服務介紹區塊 -->
+    <section class="service-section">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-12 text-center">
+                    <h2 class="fw-bold">專業服務項目</h2>
+                    <div class="wooden-accent mx-auto"></div>
+                    <p class="text-muted">提供全方位電腦相關服務,讓您的設備保持最佳狀態</p>
+                </div>
+            </div>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon">🔧</div>
+                        <h4 class="service-title">電腦優化保養</h4>
+                        <p class="service-desc">專業系統清理、硬體檢測與效能優化,讓您的電腦運作如新</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon">💻</div>
+                        <h4 class="service-title">系統軟體安裝</h4>
+                        <p class="service-desc">Windows 系統安裝、驅動程式更新、常用軟體配置一次到位</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon">🎮</div>
+                        <h4 class="service-title">主機客製化組裝</h4>
+                        <p class="service-desc">依據您的需求與預算,打造專屬高效能電腦主機</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon">🛠️</div>
+                        <h4 class="service-title">周邊配件升級</h4>
+                        <p class="service-desc">RAM、SSD、顯卡等硬體升級服務,提升電腦整體效能</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon">🔍</div>
+                        <h4 class="service-title">疑難雜症排解</h4>
+                        <p class="service-desc">專業故障診斷、系統修復、資料救援等全方位維修服務</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="service-card text-center">
+                        <div class="service-icon">📦</div>
+                        <h4 class="service-title">到府收送服務</h4>
+                        <p class="service-desc">提供便捷的到府收送服務,節省您寶貴的時間</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <footer class="footer-fractal text-center">
+        <div class="container">
+            <div class="mb-4">
+                <a href="#" class="footer-link">關於我們</a>
+                <a href="#" class="footer-link">隱私權政策</a>
+                <a href="#" class="footer-link">服務條款</a>
+                <a href="https://page.line.me/zdu6202i?oat_content=url&openQrModal=true" class="footer-link">LINE 客服:
+                    @mike149141414</a>
+            </div>
+            <p class="text-muted small">© 2026 hungta-ec 泓達電腦 | Powered by sumoren</p>
+        </div>
+    </footer>
+
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="float-top"
+        style="position: fixed; bottom: 30px; right: 35px; z-index: 1000; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; background: #c19a6b; color: white; border: none; box-shadow: 0 4px 15px rgba(193, 154, 107, 0.3); transition: 0.3s; cursor: pointer; font-size: 20px; font-weight: bold;"
+        onmouseover="this.style.background='#a88456'; this.style.transform='translateY(-3px)'; this.style.boxShadow='0 6px 20px rgba(193, 154, 107, 0.4)'"
+        onmouseout="this.style.background='#c19a6b'; this.style.transform='translateY(0)'; this.style.boxShadow='0 4px 15px rgba(193, 154, 107, 0.3)'">
+        ↑
+    </button>
+
+    <a href="https://page.line.me/zdu6202i?oat_content=url&openQrModal=true" class="float-line" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" width="60">
+    </a>
+
+
+    <script>
+        const CONFIG = {
+            bannerCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWCVCySU-hhZPzN2bjvcFf8XCceOJmQlWBZgovrVTaaELofSNu4S3bREtfMwXHwEqt04-kfkxY6yWb/pub?gid=0&single=true&output=csv',
+            productCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWCVCySU-hhZPzN2bjvcFf8XCceOJmQlWBZgovrVTaaELofSNu4S3bREtfMwXHwEqt04-kfkxY6yWb/pub?gid=2067970459&single=true&output=csv',
+            lineID: '@mike149141414'
+        };
+
+        function initWebsite() {
+            // 1. 讀取大圖 (Banner) 替換英雄區圖片
+            Papa.parse(CONFIG.bannerCsv, {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    const banners = results.data.filter(b => b.image);
+                    if (banners.length > 0) {
+                        const heroImg = document.querySelector('.hero-section img');
+                        if (heroImg) heroImg.src = banners[0].image;
+                    }
+                }
+            });
+
+            // 2. 讀取商品填入「熱門精選」
+            Papa.parse(CONFIG.productCsv, {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    const products = results.data.filter(p => p.name && p.status === '上架');
+                    // 限制只顯示前 3 個熱門商品
+                    renderMinimalProducts(products.slice(0, 3));
+                }
+            });
+        }
+
+        function renderMinimalProducts(products) {
+            const container = document.querySelector('.container.mb-5 .row.g-4');
+            if (!container) return;
+            container.innerHTML = products.map(p => `
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm h-100">
+                    <div class="card-body text-center p-4">
+                        <img src="${p.img}" class="img-fluid shadow-sm mb-3" style="border-radius: 10px; height: 200px; object-fit: contain; cursor: pointer;" onclick="showImage(this.src)">
+                        <h4 class="fw-bold mb-3">${p.name}</h4>
+                        <p class="text-muted mb-2">${p.spec}</p>
+                        <h5 class="fw-bold mb-4" style="color: #c19a6b;">NT$ ${p.price}</h5>
+                        <button class="btn btn-nordic w-100" onclick="addToCart('${p.name}', '${p.spec}')">立刻詢問</button>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        }
+
+        // 圖片放大功能
+        function showImage(src) {
+            let modalEl = document.getElementById('imageModal');
+            if (!modalEl) {
+                document.body.insertAdjacentHTML('beforeend', '<div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true"><div class="modal-dialog modal-dialog-centered modal-xl"><div class="modal-content border-0"><div class="modal-body p-0 text-center position-relative"><button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal"></button><img src="" id="modalImage" class="img-fluid rounded" style="max-height: 90vh;"></div></div></div></div>');
+                modalEl = document.getElementById('imageModal');
+            }
+            document.getElementById('modalImage').src = src;
+            new bootstrap.Modal(modalEl).show();
+        }
+
+        function addToCart(name, spec) {
+            Swal.fire({
+                title: '規格已鎖定',
+                text: '按下確定後直接導向官方 LINE',
+                icon: 'info',
+                confirmButtonText: '確定',
+                confirmButtonColor: '#c19a6b'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const text = encodeURIComponent(`您好，我想客製化詢問：\n【產品名稱】：${name}\n【預計規格】：${spec}`);
+                    window.location.href = `https://line.me/R/oaMessage/${CONFIG.lineID}/?${text}`;
+                }
+            });
+        }
+
+        window.onload = initWebsite;
+    </script>
+</body>
+
+</html>
