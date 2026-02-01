@@ -10,29 +10,232 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
     <style>
-        body { background-color: #0c0116; color: white; font-family: 'Inter', 'Noto Sans TC', sans-serif; min-width: 350px; }
-        .navbar { background: rgba(12, 1, 22, 0.95); padding: 12px 0; border-bottom: 1px solid #3d1d6d; }
-        .navbar-brand img { height: 50px; width: auto; }
-        .nav-link { font-size: 14px; color: #ccc !important; margin-left: 5px; white-space: nowrap; }
-        .nav-link:hover { color: #df42b1 !important; }
-        .btn-purple { background: #df42b1; color: white; border-radius: 50px; font-weight: bold; transition: 0.3s; border: none; }
-        .btn-purple:hover { background: #bc2e93; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(223, 66, 177, 0.4); }
-        .card { background: #1a0b2e; border: 1px solid #3d1d6d; transition: 0.3s; }
-        .card:hover { border-color: #df42b1; }
-        .card-img-top { transition: 0.3s; height: 250px; object-fit: contain; background-color: #0c0116; cursor: pointer; }
-        .footer-confer { background: #080110; border-top: 2px solid #df42b1; padding: 60px 0 30px; margin-top: 80px; }
-        .footer-title { color: #df42b1; font-weight: bold; margin-bottom: 20px; }
-        .float-line { position: fixed; bottom: 100px; right: 30px; z-index: 1000; transition: 0.3s; }
-        .dropdown-menu { background-color: #1a0b2e; border: 1px solid #df42b1; }
-        .dropdown-item { color: #ccc !important; }
-        .dropdown-item:hover { background-color: rgba(223, 66, 177, 0.2); color: #df42b1 !important; }
+        body {
+            background-color: #0c0116;
+            color: white;
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            min-width: 350px;
+        }
+
+        /* Navbar 優化 */
+        .navbar {
+            background: rgba(12, 1, 22, 0.95);
+            padding: 12px 0;
+            border-bottom: 1px solid #3d1d6d;
+        }
+
+        .navbar-brand img {
+            height: 50px;
+            width: auto;
+        }
+
+        /* LOGO 尺寸 */
+        .nav-link {
+            font-size: 14px;
+            color: #ccc !important;
+            margin-left: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            white-space: nowrap;
+        }
+
+        @media (min-width: 1400px) {
+            .nav-link {
+                font-size: 18px;
+                margin-left: 15px;
+            }
+        }
+
+        .nav-link:hover {
+            color: #df42b1 !important;
+        }
+
+        /* 按鈕設計 */
+        .btn-purple {
+            background: #df42b1;
+            color: white;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: 0.3s;
+            border: none;
+        }
+
+        .btn-purple:hover {
+            background: #bc2e93;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(223, 66, 177, 0.4);
+        }
+
+        /* Hero Section */
+        .hero-section {
+            padding: 0;
+            background: radial-gradient(circle at center, #1a0b2e 0%, #0c0116 70%);
+            border-bottom: 1px solid #3d1d6d;
+            height: 600px;
+        }
+
+        /* RWD高度調整 */
+        @media (max-width: 768px) {
+            .hero-section {
+                height: 550px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-section {
+                height: 500px;
+            }
+        }
+
+        #heroCarousel {
+            height: 100%;
+        }
+
+        #heroCarousel .carousel-inner {
+            height: 100%;
+        }
+
+        /* 輪播項目設定 */
+        .carousel-item {
+            height: 100%;
+        }
+
+        /* 滿版圖片設定 - 改為 contain 讓圖片完整顯示 */
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            object-position: center;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(223, 66, 177, 0.5);
+        }
+
+        /* RWD大小調整 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: #ccc;
+            margin-bottom: 40px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* RWD大小調整 */
+        @media (max-width: 768px) {
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-subtitle {
+                font-size: 0.9rem;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Cards */
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid #3d1d6d;
+            padding: 40px 20px;
+            border-radius: 15px;
+            transition: 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: #df42b1;
+            background: rgba(223, 66, 177, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #df42b1;
+            margin-bottom: 20px;
+        }
+
+        /* Footer */
+        .footer-confer {
+            background: #080110;
+            border-top: 2px solid #df42b1;
+            padding: 60px 0 30px;
+            margin-top: 80px;
+        }
+
+        .footer-title {
+            color: #df42b1;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .float-line {
+            position: fixed;
+            bottom: 100px;
+            right: 30px;
+            z-index: 1000;
+            transition: 0.3s;
+        }
+
+        .float-line:hover {
+            transform: scale(1.1);
+        }
+
+        /* Carousel Styles */
+        .carousel-item {
+            height: 600px;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-indicators [data-bs-target] {
+            background-color: #df42b1;
+        }
+
+        .dropdown-menu {
+            background-color: #1a0b2e;
+            border: 1px solid #df42b1;
+        }
+
+        .dropdown-item {
+            color: #ccc !important;
+            transition: 0.3s;
+        }
+
+        .dropdown-item:hover {
+            background-color: rgba(223, 66, 177, 0.2);
+            color: #df42b1 !important;
+        }
+    </style>
     </style>
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-xl navbar-dark sticky-top">
+   <nav class="navbar navbar-expand-xl navbar-dark sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="index.html">
+            <a class="navbar-brand" href="home.html">
                 <img src="./pic/logo白底SVG.png" alt="泓達電腦 LOGO">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -40,17 +243,64 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item"><a class="nav-link" href="#">電腦優化保養</a></li>
+                    <!-- 電腦優化保養 Dropdown -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">
+                            ~必備~電腦優化保養
+                        </a>
+                    </li>
+                    <!-- 系統軟體 Dropdown -->
                     <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">主機套餐</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="index.html">首頁精選</a></li>
-                            <li><a class="dropdown-item" href="product.html">AMD 系列</a></li>
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            ~系統軟體~
+                        </a>
+                        <ul class="dropdown-menu" style="background-color: #1a0b2e; border: 1px solid #df42b1;">
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">Windows 11 家用中文版 64位元隨機版</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">Microsoft Office 2024</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="https://page.line.me/zdu6202i">聯絡我們</a></li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="index1.html" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">主機套餐</a>
+                        <ul class="dropdown-menu" style="background-color: #1a0b2e; border: 1px solid #df42b1;">
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">華碩ddr5套餐</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">技嘉ddr5套餐</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">微星ddr5套餐</a></li>
+                            <li><a class="dropdown-item" href="index1.html" style="color: #ccc;">amd ddr5套餐</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">周邊配件</a>
+                        <ul class="dropdown-menu" style="background-color: #1a0b2e; border: 1px solid #df42b1;">
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">鍵鼠/滑鼠</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">周邊配件</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">疑難雜症</a>
+                        <ul class="dropdown-menu" style="background-color: #1a0b2e; border: 1px solid #df42b1;">
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">Youtube</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">Facebook</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">Instagram</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">Threads</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                            aria-expanded="false">購買須知</a>
+                        <ul class="dropdown-menu" style="background-color: #1a0b2e; border: 1px solid #df42b1;">
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">顧客購買須知</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">商品退換貨須知</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">保固須知</a></li>
+                            <li><a class="dropdown-item" href="#" style="color: #ccc;">送修須知</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item "><a class="nav-link" href="#">關於我們</a></li>
                     <li class="nav-item ms-lg-3">
-                        <a class="btn btn-purple px-4" href="https://page.line.me/zdu6202i">立即詢價</a>
+                        <a class="btn btn-purple px-4" href="https://page.line.me/zdu6202i">聯絡我們</a>
                     </li>
                 </ul>
             </div>
@@ -71,20 +321,21 @@
         </div>
     </div>
 
+ 
     <footer class="footer-confer">
         <div class="container text-center">
             <div class="row mb-5">
                 <div class="col-md-4">
                     <h6 class="footer-title">服務條款</h6>
-                    <p class="text-white fw-bold">TERMS OF SERVICE</p>
+                    <p class="text-white fw-bold" style="font-size: 1.1em; letter-spacing: 1px;">TERMS OF SERVICE</p>
                 </div>
                 <div class="col-md-4">
                     <h6 class="footer-title">隱私權政策</h6>
-                    <p class="text-white fw-bold">PRIVACY POLICY</p>
+                    <p class="text-white fw-bold" style="font-size: 1.1em; letter-spacing: 1px;">PRIVACY POLICY</p>
                 </div>
                 <div class="col-md-4">
                     <h6 class="footer-title">官方 LINE</h6>
-                    <p class="text-white fw-bold">@mike149141414</p>
+                    <p class="text-white fw-bold" style="font-size: 1.1em; letter-spacing: 1px;">@mike149141414</p>
                 </div>
             </div>
             <p class="text-muted small">© 2026 hungta-ec 泓達電腦 | Power by sumoren</p>
@@ -94,7 +345,10 @@
     <a href="https://page.line.me/zdu6202i" class="float-line" target="_blank">
         <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" width="60">
     </a>
-
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" class="btn btn-purple float-top"
+        style="position: fixed; bottom: 30px; right: 35px; z-index: 1000; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center;">
+        ↑
+    </button>
     <div class="modal fade" id="imageModal" tabindex="-1" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-xl">
             <div class="modal-content bg-transparent border-0">
