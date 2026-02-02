@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>產品目錄 - 泓達電腦</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" sizes="32x32" href="./pic/原色白邊框logo.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./pic/原色白邊框logo.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="./pic/原色白邊框logo.png">
+    <link rel="shortcut icon" href="./pic/原色白邊框logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.2/papaparse.min.js"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Noto Sans TC', sans-serif;
+            background-color: #ffffff;
+            color: #333;
+            min-width: 350px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background: #fff;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .navbar-brand img {
+            height: 60px;
+            width: auto;
+        }
+
+        .nav-link {
+            font-size: 20px;
+            font-weight: 500;
+            color: #555 !important;
+            padding-left: 12px !important;
+            padding-right: 12px !important;
+            transition: 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-link:hover {
+            color: #000 !important;
+        }
+
+
+        /* 2. 1200px - 1400px */
+        @media (max-width: 1400px) {
+            .nav-link {
+                font-size: 16px;
+                padding-left: 8px !important;
+                padding-right: 8px !important;
+            }
+        }
+
+        /* 3. 992px - 1200px 最容易爆版 */
+        @media (max-width: 1200px) {
+            .nav-link {
+                font-size: 14px;
+                padding-left: 5px !important;
+                padding-right: 5px !important;
+                margin-left: 0 !important;
+            }
+
+            .navbar-brand img {
+                height: 50px;
+            }
+
+            /* 漢堡選單展開時文字放大 */
+            .navbar-collapse .nav-link {
+                font-size: 18px !important;
+                padding: 12px 15px !important;
+            }
+        }
+
+
+
+        .product-card {
+            transition: 0.3s;
+            margin-bottom: 40px;
+            border: none;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .product-card img {
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            object-fit: contain;
+            background: #f5f5f5;
+            cursor: pointer;
+            transition: 0.3s;
+            max-height: 400px;
+        }
+
+        .product-card img:hover {
+            opacity: 0.9;
+        }
+
+        /* 按鈕優化 */
+        .btn-outline-dark {
+            border-radius: 0;
+            padding: 10px 30px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-size: 14px;
+        }
+
+        /* Footer */
+        .footer-dark {
+            background: #111;
+            color: #888;
+            padding: 60px 0;
+            font-size: 14px;
+        }
+
+        .footer-dark h5 {
+            color: #fff;
+            margin-bottom: 25px;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .footer-link {
+            color: #888;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #fff;
+        }
+
+        /* 浮動按鈕 */
+        .float-line {
+            position: fixed;
+            bottom: 80px;
+            right: 25px;
+            z-index: 999;
+            transition: 0.3s;
+        }
+
+        .float-line:hover {
+            transform: scale(1.1);
+        }
+
+        .to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 25px;
+            z-index: 999;
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            opacity: 0.8;
+        }
+
+        .to-top:hover {
+            opacity: 1;
+        }
+
+        /* Footer RWD: 小螢幕時置中 */
+        @media (max-width: 768px) {
+            .footer-dark .col-md-4 {
+                text-align: center !important;
+            }
+
+            .footer-dark .text-end {
+                text-align: center !important;
+            }
+        }
+
+        /* 圖片放大模態框 */
+        .image-modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content-img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+            transition: 0.3s;
+        }
+
+        .close-modal:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-xl navbar-light bg-white border-bottom sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <img src="./pic/layer-MC0.png" alt="泓達電腦 LOGO">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#">電腦優化保養</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">系統軟體</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">主機套餐</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">周邊配件</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">疑難雜症</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">關於配送</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">購買須知</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#">關於我們</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5 py-5">
+        <h2 class="text-center mb-5 fw-bold" style="letter-spacing: 3px;">精選組裝套餐</h2>
+        <div class="row g-4" id="product-list">
+            <!-- 商品將從 Google Sheets 動態載入 -->
+            <div class="text-center w-100 py-5">
+                <div class="spinner-border text-dark" role="status"></div>
+                <p class="mt-3">產品加載中,請稍候...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer-dark">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4 mb-md-0">
+                    <h5>ABOUT US</h5>
+                    <p>專業電腦維修與組裝，致力於提供最高標準的硬體解決方案與系統優化服務。</p>
+                </div>
+                <div class="col-md-4 text-center mb-4 mb-md-0">
+                    <h5>FOLLOW US</h5>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="#" class="footer-link">Facebook</a>
+                        <a href="#" class="footer-link">Instagram</a>
+                        <a href="#" class="footer-link">Threads</a>
+                    </div>
+                </div>
+                <div class="col-md-4 text-end">
+                    <h5>CONTACT</h5>
+                    <p class="mb-1">LINE 客服: @mike149141414</p>
+                    <p class="mb-0">服務專線: 03-4387682</p>
+                </div>
+            </div>
+            <hr class="mt-5 border-secondary opacity-25">
+            <p class="text-center mb-0 small text-muted">© 2026 泓達電腦 hungta-ec. Powered by sumoren.</p>
+        </div>
+    </footer>
+
+    <a href="https://page.line.me/zdu6202i?openQrModal=true" class="float-line" target="_blank">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/LINE_logo.svg" width="50">
+    </a>
+    <button class="btn btn-dark to-top shadow" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">↑</button>
+
+    <!-- 圖片放大模態框 -->
+    <div id="imageModal" class="image-modal" onclick="closeModal()">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <img id="modalImage" class="modal-content-img">
+    </div>
+
+
+    <script>
+        // --- Google Sheets CSV 配置 ---
+        const CONFIG = {
+            productCsv: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSWCVCySU-hhZPzN2bjvcFf8XCceOJmQlWBZgovrVTaaELofSNu4S3bREtfMwXHwEqt04-kfkxY6yWb/pub?gid=2067970459&single=true&output=csv',
+            lineID: '@mike149141414'
+        };
+
+        // 載入商品資料
+        function loadProducts() {
+            Papa.parse(CONFIG.productCsv, {
+                download: true,
+                header: true,
+                complete: function (results) {
+                    const activeProducts = results.data.filter(p => p.name && p.status === '上架');
+                    const container = document.getElementById('product-list');
+
+                    if (activeProducts.length === 0) {
+                        container.innerHTML = '<div class="text-center w-100">目前暫無上架商品。</div>';
+                        return;
+                    }
+
+                    container.innerHTML = activeProducts.map(p => `
+                        <div class="col-md-4 product-card text-center">
+                            <img src="${p.img}" class="img-fluid mb-4" alt="${p.name}"
+                                onclick="openImageModal('${p.img}')">
+                            <h5 class="fw-bold">${p.name}</h5>
+                            <p class="text-muted small">${p.spec}</p>
+                            <button class="btn btn-outline-dark px-4"
+                                onclick="addToCart('${p.name}', '${p.spec}')">立即諮詢</button>
+                        </div>
+                    `).join('');
+                }
+            });
+        }
+
+        // 圖片放大功能
+        function openImageModal(imgSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'block';
+            modalImg.src = imgSrc;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').style.display = 'none';
+        }
+
+        // ESC 鍵關閉模態框
+        document.addEventListener('keydown', function (event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+
+        function addToCart(name, spec) {
+            Swal.fire({
+                title: '規格已鎖定',
+                text: '按下確定後直接導向官方 LINE 並帶入產品規格文字',
+                icon: 'info',
+                confirmButtonText: '確定',
+                confirmButtonColor: '#333'
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        const msg = encodeURIComponent(`您好,我想詢問套餐:\n【${name}】\n配置細節:${spec}`);
+                        window.location.href = `https://line.me/R/oaMessage/${CONFIG.lineID}/?${msg}`;
+                    }
+                });
+        }
+
+        // 頁面載入時執行
+        window.onload = loadProducts;
+    </script>
+</body>
+
+</html>
